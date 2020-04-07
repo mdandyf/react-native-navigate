@@ -1,9 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-const FilterScreen = ({
-    params,
-}) => (
+const FilterScreen = (props) => (
     <View>
         <Text>This is FilterScreen</Text>
     </View>
