@@ -4,9 +4,12 @@ import { Text, View, Button, StyleSheet } from 'react-native';
 import { CATEGORIES } from '../data/dummy-data';
 
 const CategoryMealsScreen = (props) => {
+    const categoryId = props.navigation.getParam('categoryId');
+    const category = CATEGORIES.find((data) => data.id === categoryId);
+
     return (
         <View style={styles.container}>
-            <Text>This is CategoryMeal</Text>
+            <Text>This is Category Meal with title {category.title}</Text>
             <Button
                 title="To Meal Detail"
                 onPress={() => {
