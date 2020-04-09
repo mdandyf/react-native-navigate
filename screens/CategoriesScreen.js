@@ -12,7 +12,7 @@ const CategoriesScreen = (props) => {
             data={CATEGORIES}
             renderItem={(itemData) =>
                 <ListItem
-                    itemData={itemData}
+                    itemData={itemData.item}
                     navigation={props.navigation}
                     nextRoute='CategoryMeals'
                 />
