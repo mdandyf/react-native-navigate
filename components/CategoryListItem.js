@@ -1,19 +1,11 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
-const ListItem = (props) => {
+const CategoryListItem = (props) => {
     return (
         <TouchableOpacity
             style={styles.container}
-            onPress={() => {
-                props.navigation.navigate({
-                    routeName: props.nextRoute,
-                    params: {
-                        categoryId: props.itemData.id
-                    }
-                }
-                )
-            }}
+            onPress={props.onSelect}
         >
             <View style={{ ...styles.listItem, ...{ backgroundColor: props.itemData.color } }}>
                 <Text style={styles.text}>
@@ -24,11 +16,11 @@ const ListItem = (props) => {
     );
 };
 
-export default ListItem;
+export default CategoryListItem;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
     },
     listItem: {
         borderWidth: 1,
@@ -41,12 +33,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.26,
         elevation: 8,
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        alignItems: 'flex-end',
+        overflow: 'hidden'
     },
     text: {
+        paddingBottom: 10,
+        paddingRight: 10,
         fontFamily: 'open-sans',
         fontWeight: 'bold',
-        fontSize: 15,
-        color: 'white'
+        fontSize: 20,
+        color: 'black'
     }
 });

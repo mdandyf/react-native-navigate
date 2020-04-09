@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 
 import { CATEGORIES } from '../data/dummy-data';
-import ListItem from '../components/ListItem';
+import CategoryListItem from '../components/CategoryListItem';
 
 const CategoriesScreen = (props) => {
     return (
@@ -11,10 +11,17 @@ const CategoriesScreen = (props) => {
             keyExtractor={(itemData, index) => itemData.id}
             data={CATEGORIES}
             renderItem={(itemData) =>
-                <ListItem
+                <CategoryListItem
                     itemData={itemData.item}
-                    navigation={props.navigation}
-                    nextRoute='CategoryMeals'
+                    onSelect={() => {
+                        props.navigation.navigate({
+                            routeName: 'CategoryMeals',
+                            params: {
+                                categoryId: itemData.item.id
+                            }
+                        }
+                        )
+                    }}
                 />
             }
         />
