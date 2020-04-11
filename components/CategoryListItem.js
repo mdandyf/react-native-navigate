@@ -5,8 +5,7 @@ const CategoryListItem = (props) => {
     return (
         <TouchableOpacity
             style={styles.container}
-            onPress={props.onSelect}
-        >
+            onPress={props.onSelect}>
             <View style={{ ...styles.listItem, ...{ backgroundColor: props.itemData.color } }}>
                 <Text style={styles.text}>
                     {props.itemData.title}
