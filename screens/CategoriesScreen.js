@@ -1,6 +1,10 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+
+import HeaderButton from '../components/HeaderButton';
+
 import { CATEGORIES } from '../data/dummy-data';
 import CategoryListItem from '../components/CategoryListItem';
 
@@ -29,3 +33,16 @@ const CategoriesScreen = (props) => {
 };
 
 export default CategoriesScreen;
+
+CategoriesScreen.navigationOptions = (navigationData) => {
+    return {
+        headerLeft: () =>
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                    title='Menu'
+                    iconName='ios-menu'
+                    onPress={() => { navigationData.navigation.toggleDrawer() }}
+                />
+            </HeaderButtons>
+    }
+}

@@ -1,26 +1,28 @@
 import React from 'react';
-import { Text, View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 
 const MealListItem = (props) => {
     return (
         <View style={styles.container}>
-            <View style={styles.imageContainer}>
-                <ImageBackground
-                    fadeDuration={1000}
-                    style={styles.image}
-                    source={{ uri: props.itemData.imageUrl }}>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.text}>
-                            {props.itemData.title}
-                        </Text>
-                    </View>
-                </ImageBackground>
-            </View>
-            <View style={styles.detailContainer}>
-                <Text style={styles.detailText}>{props.itemData.duration}m</Text>
-                <Text style={styles.detailText}>{props.itemData.afforablility}</Text>
-                <Text style={styles.detailText}>{props.itemData.complexity}</Text>
-            </View>
+            <TouchableOpacity onPress={props.onSelect}>
+                <View style={styles.imageContainer}>
+                    <ImageBackground
+                        fadeDuration={1000}
+                        style={styles.image}
+                        source={{ uri: props.itemData.imageUrl }}>
+                        <View style={styles.textContainer}>
+                            <Text style={styles.text}>
+                                {props.itemData.title}
+                            </Text>
+                        </View>
+                    </ImageBackground>
+                </View>
+                <View style={styles.detailContainer}>
+                    <Text style={styles.detailText}>{props.itemData.duration}m</Text>
+                    <Text style={styles.detailText}>{props.itemData.afforablility}</Text>
+                    <Text style={styles.detailText}>{props.itemData.complexity}</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 };
