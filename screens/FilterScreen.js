@@ -6,26 +6,32 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import SwitchItem from '../components/SwitchItem';
 
-const FilterScreen = (props) => {
+const FilterScreen = (props) => {   
+    const { navigation } = props;
+
     const [isGLutenFree, setIsGlutenFree] = useState(false);
     const [isLactoseFree, setIsLactoseFree] = useState(false);
     const [isVegan, setIsVegan] = useState(false);
     const [isVegetarian, setIsVegetarian] = useState(false);
 
-    const saveFilters = () => {
-      const appliedFilters = {
-          glutenFree: isGLutenFree,
-          lactoseFree: isLactoseFree,
-          vegan: isVegan,
-          vegetarian: isVegetarian
-      }
+    const saveFilters = useCallback(() => {
+        // this is to avoid the saveFilter to be rebuild whenever the FilterScreen is rebuild (saving state although the screen is re-rendered)
+        // if and only if the state changed, the value in here will be renewed
+        const appliedFilters = {
+            glutenFree: isGLutenFree,
+            lactoseFree: isLactoseFree,
+            vegan: isVegan,
+            vegetarian: isVegetarian
+        }
 
-      console.log(appliedFilters);
-    }
+        console.log(appliedFilters);
+    }, [isGLutenFree, isLactoseFree, isVegan, isVegetarian]); // all parameters that need to be watched
 
-    useState = {
+    useEffect(() => {
+        // set the function saveFilters and stored it as pointer of a function to be used after async render screen
+        navigation.setParams({save: saveFilters});
 
-    }
+    }, [saveFilters]); // set the parameter that will be watched during async of render screen (whenever the values in the pointer are changed)
 
     const onChangePropsGF = (value) => {
         setIsGlutenFree(value);
@@ -63,7 +69,7 @@ FilterScreen.navigationOptions = (navigationData) => {
                 <Item
                     title='Menu'
                     iconName='ios-menu'
-                    onPress={() => { navigationData.navigation.toggleDrawer() }}
+                    onPress={() => { navigationData.navigation.toggleDrawer() }} // this is executed as a function
                 />
             </HeaderButtons>,
         headerRight: () =>
@@ -71,7 +77,7 @@ FilterScreen.navigationOptions = (navigationData) => {
                 <Item
                     title='Save'
                     iconName='ios-save'
-                    onPress={() => console.log('Save Button is pressed!!!')}
+                    onPress={navigationData.navigation.getParam('save')} // this is to retrieve the pointer pointed by keyword save above
                 />
             </HeaderButtons>
     }
