@@ -1,22 +1,22 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import CategoryMealListItem from '../components/CategoryMealListItem';
 
-import { MEALS } from '../data/dummy-data';
+import { useSelector } from 'react-redux';
+
+import CategoryMealListItem from '../components/CategoryMealListItem';
 
 const FavouritesScreen = (props) => {
 
     const categoryId = '';
 
-    const favouriteMeals = ['m1', 'm2', 'm3'];
-
-    const selectedMeal = MEALS.filter(meal => favouriteMeals.indexOf(meal.id) > 0);
+    const availableMeals = useSelector(state => state.mealsReducerState.favouriteMeals);
 
     return(
          <CategoryMealListItem
+            nextRoute='MealDetail'
             style={styles.container}
             categoryId={categoryId}
-            selectedMeal={selectedMeal}
+            selectedMeal={availableMeals}
             navigation={props.navigation}
         />
     );

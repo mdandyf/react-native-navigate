@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
 import MealsNavigation from './navigation/MealsNavigation';
+import mealsReducer from './store/reducers/meals-reducer';
+
+const rootReducer = combineReducers({
+  // if there are many reducers, populate them into an object
+  mealsReducerState: mealsReducer
+});
+
+const rootStore = createStore(rootReducer);
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -26,10 +36,8 @@ export default function App() {
   }
 
   return (
-    <MealsNavigation />
+    <Provider store={rootStore}>
+      <MealsNavigation />
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  
-});
