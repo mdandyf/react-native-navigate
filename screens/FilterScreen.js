@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Alert } from 'react-native';
 
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import HeaderButton from '../components/HeaderButton';
 import SwitchItem from '../components/SwitchItem';
 
+import { useDispatch } from 'react-redux';
+import { toggleSaveFilter } from '../store/actions/meals-action';
+
 const FilterScreen = (props) => {   
     const { navigation } = props;
+    const dispatch = useDispatch();
 
     const [isGLutenFree, setIsGlutenFree] = useState(false);
     const [isLactoseFree, setIsLactoseFree] = useState(false);
@@ -24,8 +28,15 @@ const FilterScreen = (props) => {
             vegetarian: isVegetarian
         }
 
-        console.log(appliedFilters);
-    }, [isGLutenFree, isLactoseFree, isVegan, isVegetarian]); // all parameters that need to be watched
+        // Set to save the filters applied to the available meals
+        Alert.alert(
+            'Confirmation', 
+            'Are you sure to save record?', 
+            [{text: 'No', onPress: () => {}},
+             {text: 'Yes', onPress: () => dispatch(toggleSaveFilter(appliedFilters))}]
+        )
+        
+    }, [isGLutenFree, isLactoseFree, isVegan, isVegetarian, dispatch]); // all parameters that need to be watched
 
     useEffect(() => {
         // set the function saveFilters and stored it as pointer of a function to be used after async render screen
@@ -77,7 +88,7 @@ FilterScreen.navigationOptions = (navigationData) => {
                 <Item
                     title='Save'
                     iconName='ios-save'
-                    onPress={navigationData.navigation.getParam('save')} // this is to retrieve the pointer pointed by keyword save above
+                    onPress={ navigationData.navigation.getParam('save') } // this is to retrieve the pointer pointed by keyword save above
                 />
             </HeaderButtons>
     }

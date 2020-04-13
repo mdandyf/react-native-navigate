@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import CategoryMealListItem from '../components/CategoryMealListItem';
+import DataNotFoundItem from '../components/DataNotFoundItem';
 
 const FavouritesScreen = (props) => {
 
@@ -12,6 +13,9 @@ const FavouritesScreen = (props) => {
     const availableMeals = useSelector(state => state.mealsReducerState.favouriteMeals);
 
     return(
+        (availableMeals.length <= 0) ?
+        <DataNotFoundItem />
+        :
          <CategoryMealListItem
             nextRoute='MealDetail'
             style={styles.container}

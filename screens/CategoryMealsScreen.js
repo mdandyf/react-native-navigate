@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { CATEGORIES } from '../data/dummy-data';
 
 import CategoryMealListItem from '../components/CategoryMealListItem';
+import DataNotFoundItem from '../components/DataNotFoundItem';
 
 const CategoryMealsScreen = (props) => {
     const categoryId = props.navigation.getParam('categoryId');
@@ -14,6 +15,10 @@ const CategoryMealsScreen = (props) => {
     const selectedMeal = availableMeals.filter(meal => meal.categoryIds.indexOf(categoryId) >= 0);
 
     return (
+        (selectedMeal.length <= 0)
+        ?
+        <DataNotFoundItem />
+        :
         <CategoryMealListItem
             nextRoute='MealDetail'
             style={styles.container}
