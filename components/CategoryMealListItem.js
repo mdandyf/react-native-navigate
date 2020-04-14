@@ -19,7 +19,7 @@ const CategoryMealListItem = (props) => {
                                 routeName: props.nextRoute,
                                 params: {
                                     mealId: itemData.item.id,
-                                    categoryId: props.categoryId
+                                    category: props.category
                                 }
                             })
                             :

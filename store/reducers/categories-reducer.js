@@ -1,12 +1,7 @@
 import { GET_CATEGORIES } from "../actions/categories-action";
-import { CATEGORIES } from "../../data/dummy-data";
 import Category from "../../models/Category";
 
-const initialState = {
-    categories: CATEGORIES
-}
-
-const categoriesReducer = (state = initialState, action) => {
+const categoriesReducer = (state, action) => {
     switch (action.type) {
         case GET_CATEGORIES:
             return {categories: action.categories};

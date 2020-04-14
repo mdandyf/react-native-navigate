@@ -1,10 +1,12 @@
-import { MEALS } from '../../data/dummy-data';
-import { TOGGLE_FAVOURITE, TOGGLE_SAVE_FILTER } from '../actions/meals-action';
+import { TOGGLE_FAVOURITE, TOGGLE_SAVE_FILTER, SAVE_MEAL_CLOUD, GET_MEALS } from '../actions/meals-action';
+import Meal from '../../models/Meal';
 
 const initialState = {
-    meals: MEALS,
-    filteredMeals: MEALS,
-    favouriteMeals: []
+    meals: [],
+    filteredMeals: [],
+    favouriteMeals: [],
+    currentMeal: new Meal(),
+    isFiltered: false
 }
 
 const mealsReducer = (state = initialState, action) => {
@@ -23,26 +25,30 @@ const mealsReducer = (state = initialState, action) => {
             }
         case TOGGLE_SAVE_FILTER:
             const appliedFilters = action.filterList;
-
+            let updatedIsFiltered= false;
             const updatedFilteredMeals = state.meals.filter(meal => {
-                if(appliedFilters.glutenFree && !meal.isGlutenFree) {
+                if (appliedFilters.glutenFree && !meal.isGlutenFree) {
                     return false;
                 }
-                if(appliedFilters.lactoseFree && !meal.isLactoseFree) {
+                if (appliedFilters.lactoseFree && !meal.isLactoseFree) {
                     return false;
                 }
-                if(appliedFilters.vegan && !meal.isVegan) {
+                if (appliedFilters.vegan && !meal.isVegan) {
                     return false;
                 }
-                if(appliedFilters.vegetarian && !meal.isVegetarian) {
+                if (appliedFilters.vegetarian && !meal.isVegetarian) {
                     return false;
                 }
 
+                updatedIsFiltered= true;
                 return true;
             })
 
-            return {...state, filteredMeals: updatedFilteredMeals}
-
+            return { ...state, filteredMeals: updatedFilteredMeals, isFiltered:  updatedIsFiltered}
+        case SAVE_MEAL_CLOUD:
+            return { ...state, currentMeal: action.currentMeal };
+        case GET_MEALS:
+            return { ...state, meals: action.meals, filteredMeals: action.meals }
         default:
             return state;
     }

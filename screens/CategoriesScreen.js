@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Alert, FlatList } from 'react-native';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import HeaderButton from '../components/HeaderButton';
-
-import CategoryListItem from '../components/CategoryListItem';
-
 import * as categoriesAction from '../store/actions/categories-action';
+
 import Color from '../constants/Color';
+import HeaderButton from '../components/HeaderButton';
+import CategoryListItem from '../components/CategoryListItem';
 import LoadingIndicator from '../components/others/LoadingIndicator';
 
 const CategoriesScreen = (props) => {
@@ -50,6 +47,7 @@ const CategoriesScreen = (props) => {
     // get data categories back from API
     const categories = useSelector(state => state.categoriesReducerState.categories);
 
+    // Rendering back the needed data
     if (isLoading) {
         return (
            <LoadingIndicator size={'large'} color={Color.header} />
@@ -78,7 +76,7 @@ const CategoriesScreen = (props) => {
                         props.navigation.navigate({
                             routeName: 'CategoryMeals',
                             params: {
-                                categoryId: itemData.item.id
+                                category: itemData.item
                             }
                         }
                         )
