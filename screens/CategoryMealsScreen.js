@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { CATEGORIES } from '../data/dummy-data';
 
 import CategoryMealListItem from '../components/CategoryMealListItem';
-import DataNotFoundItem from '../components/DataNotFoundItem';
+import DataNotFoundItem from '../components/others/DataNotFoundItem';
 
 const CategoryMealsScreen = (props) => {
     const categoryId = props.navigation.getParam('categoryId');

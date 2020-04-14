@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import Color from '../constants/Color';
-
 const DataNotFoundItem = (props) => (
     <View style={styles.container}>
         <Text style={styles.textItem}>{'Data not found...'}</Text>

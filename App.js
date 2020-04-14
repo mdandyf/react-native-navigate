@@ -2,18 +2,21 @@ import React, { useState } from 'react';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
 
 import MealsNavigation from './navigation/MealsNavigation';
 import mealsReducer from './store/reducers/meals-reducer';
+import categoriesReducer from './store/reducers/categories-reducer';
 
 const rootReducer = combineReducers({
   // if there are many reducers, populate them into an object
-  mealsReducerState: mealsReducer
+  mealsReducerState: mealsReducer,
+  categoriesReducerState: categoriesReducer
 });
 
-const rootStore = createStore(rootReducer);
+const rootStore = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const fetchFonts = () => {
   return Font.loadAsync({

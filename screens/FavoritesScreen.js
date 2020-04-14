@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import CategoryMealListItem from '../components/CategoryMealListItem';
-import DataNotFoundItem from '../components/DataNotFoundItem';
+import DataNotFoundItem from '../components/others/DataNotFoundItem';
 
 const FavouritesScreen = (props) => {
 
