@@ -13,6 +13,7 @@ import LoadingIndicator from '../components/others/LoadingIndicator';
 const CategoriesScreen = (props) => {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);
     const [isError, setIsError] = useState();
 
     // Getting data of categories from Firebase real-time database
@@ -22,11 +23,13 @@ const CategoriesScreen = (props) => {
         setIsError(null);
         try {
             setIsLoading(true);
+            setIsRefreshing(true);
             await dispatch(categoriesAction.getCategories());
         } catch (err) {
             setIsError(err);
         }
         setIsLoading(false);
+        setIsRefreshing(false);
     }, [setIsLoading, setIsError, dispatch]);
 
 
@@ -66,6 +69,8 @@ const CategoriesScreen = (props) => {
 
     return (
         <FlatList
+            onRefresh={loadCategories}
+            refreshing={isRefreshing}
             numColumns={2}
             keyExtractor={(itemData, index) => itemData.id}
             data={categories}
