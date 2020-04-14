@@ -13,13 +13,17 @@ const CategoryMealListItem = (props) => {
                     <MealListItem
                         itemData={itemData.item}
                         onSelect={() => {
+                            ((props.nextRoute != '') || (props.nextRoute != undefined)) 
+                            ?
                             props.navigation.navigate({
-                                routeName: 'MealDetail',
+                                routeName: props.nextRoute,
                                 params: {
                                     mealId: itemData.item.id,
                                     categoryId: props.categoryId
                                 }
                             })
+                            :
+                            {}
                         }}
                     />
                 }

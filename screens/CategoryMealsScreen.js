@@ -1,17 +1,26 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { CATEGORIES } from '../data/dummy-data';
-import { MEALS } from '../data/dummy-data';
+
 import CategoryMealListItem from '../components/CategoryMealListItem';
+import DataNotFoundItem from '../components/DataNotFoundItem';
 
 const CategoryMealsScreen = (props) => {
     const categoryId = props.navigation.getParam('categoryId');
 
-    const selectedMeal = MEALS.filter(meal => meal.categoryIds.indexOf(categoryId) >= 0);
+    const availableMeals = useSelector(state => state.mealsReducerState.filteredMeals);
+
+    const selectedMeal = availableMeals.filter(meal => meal.categoryIds.indexOf(categoryId) >= 0);
 
     return (
+        (selectedMeal.length <= 0)
+        ?
+        <DataNotFoundItem />
+        :
         <CategoryMealListItem
+            nextRoute='MealDetail'
             style={styles.container}
             categoryId={categoryId}
             selectedMeal={selectedMeal}
