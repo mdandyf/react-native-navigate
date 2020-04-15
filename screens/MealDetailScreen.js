@@ -131,10 +131,10 @@ MealDetailScreen.navigationOptions = (navigationData) => {
                     title='Favourite'
                     iconName={navigationData.navigation.getParam('isFavMeal') ? 'ios-star' : 'ios-star-outline'}
                     onPress={navigationData.navigation.getParam('toggleFav')} />
-                <Item
+                {/* <Item
                     title='Save'
                     iconName='ios-save'
-                    onPress={navigationData.navigation.getParam('toggleSave')} />
+                    onPress={navigationData.navigation.getParam('toggleSave')} /> */}
             </HeaderButtons>
     }
 }
